@@ -24,7 +24,7 @@ def home():
             flash('You must specify date of customer join', caterogy='error')
         else:
             new_customer = Customer(customerName=customerName, customerPackage=customerPackage, customerDOJ=customerDOJ, user_id=current_user.id)
-            db.serssion.add(new_customer)
+            db.session.add(new_customer)
             db.session.commit()
             flash('Customer added!', category='success')
     return render_template("home.html", user=current_user)
