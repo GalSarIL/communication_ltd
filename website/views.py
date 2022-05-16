@@ -13,7 +13,9 @@ def home():
         customerName = request.form.get('customerName')
         customerPackage = request.form.get('customerPackage')
         customerDOJ = request.form.get('customerDOJ')
-        print(customerName)
+        print("START")
+        print(request.form)
+        print("END")
         if len(customerName) < 1:
             flash('Customer name must be atleast 2 characters', category='error')
         elif customerPackage is None:

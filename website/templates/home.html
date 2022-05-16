@@ -14,18 +14,38 @@
     {% endfor %}
 </ul>
 <form method="POST">
+    <h3 allign="center">Customers</h3>
     <div class="form-group">
-        <label for="customerName">Customer name:</label>
-        <input type="text" class="form-control" id="customerName">
-      </div>
-      <div class="form-group">
-        <label for="customerPackage">Customer package:</label>
-        <input type="text" class="form-control" id="customerPackage">
-      </div>
-      <div class="form-group">
-        <label for="customerDOJ">Date of join:</label>
-        <input type="date" class="form-control" id="customerDOJ">
-      </div>
+      <label for="customerName">Customer Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="customerName"
+        name="customerName"
+        placeholder="Enter customer name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="customerPackage">Customer Package</label>
+      <input
+        type="text"
+        class="form-control"
+        id="customerPackage"
+        name="customerPackage"
+        placeholder="Enter customer package"
+      />
+    </div>
+    <div class="form-group">
+      <label for="customerDOJ">Enter customer date of join</label>
+      <input
+        type="date"
+        class="form-control"
+        id="customerDOJ"
+        name="customerDOJ"
+        placeholder="Customer date of join"
+      />
+      <br />
       <button type="submit" class="btn btn-primary">Submit</button>
-</form>>
+    </div>
+  </form>
 {% endblock %}
