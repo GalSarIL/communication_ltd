@@ -1,8 +1,9 @@
+from datetime import date
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Customer
 from . import db
-import json
+import json, datetime
 
 views = Blueprint('views', __name__)
 
@@ -12,10 +13,8 @@ def home():
     if request.method == 'POST':
         customerName = request.form.get('customerName')
         customerPackage = request.form.get('customerPackage')
-        customerDOJ = request.form.get('customerDOJ')
-        print("START")
-        print(request.form)
-        print("END")
+        tmp = request.form.get('customerDOJ')
+        customerDOJ = datetime.datetime.strptime(tmp, '%Y-%m-%d').date()
         if len(customerName) < 1:
             flash('Customer name must be atleast 2 characters', category='error')
         elif customerPackage is None:

@@ -1,20 +1,38 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1 align="center">Customers</h1>
+<style> 
+    input[type=text] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 3px solid #ccc;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+      outline: none;
+    }
+    
+    input[type=text]:focus {
+      border: 3px solid #555;
+    }
+    </style>
+<h1 align="center">Customers list</h1>
 <ul class="list-group list-group-flush" id="customers">
     {% for customer in user.customers %}
-    <li class="list-group-item">{{ customer.customerName }}</li>"
-    <li class="list-group-item">{{ customer.customerPackage }}</li>"
-    <li class="list-group-item">{{ customer.customerDOJ }}
+    <li class="list-group-item">{{ customer.customerName }}
         <button type="button" class="close" onclick="deleteCustomer({{ customer.id }})">
             <span aria-hidden="true">&times;</span>
         </button>
-    </li>"
+    </li>
+    <li class="list-group-item">{{ customer.customerPackage }}</li>
+    <li class="list-group-item">{{ customer.customerDOJ }}</li>
+    <br />
     {% endfor %}
 </ul>
+<br />
 <form method="POST">
-    <h3 allign="center">Customers</h3>
+    <h3 allign="center">Add new customer</h3>
     <div class="form-group">
       <label for="customerName">Customer Name</label>
       <input
