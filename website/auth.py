@@ -7,6 +7,7 @@ from .pw_configuration import password_check
 
 auth = Blueprint('auth', __name__)
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -38,7 +39,7 @@ def change_pw():
             if newPassword1 != newPassword2:
                 flash('Passwords does not match!', category='error')
             elif password_check(newPassword1):
-                user.password = password=generate_password_hash(newPassword1, method='sha256')
+                user.password = password = generate_password_hash(newPassword1, method='sha256')
                 db.session.commit()
                 flash('Password changed successfully!', category='success')
                 return redirect(url_for('views.home'))
@@ -54,6 +55,7 @@ def change_pw():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -86,4 +88,23 @@ def sign_up():
             flash('User created!', category='success')
             return redirect(url_for('views.home'))
 
-    return  render_template("sign_up.html", user=current_user)
+    return render_template("sign_up.html", user=current_user)
+
+
+@auth.route('/reset-password', methods=['GET', 'POST'])
+def reset_password():
+    if request.method == 'POST':
+        newPassword1 = request.form.get('newPassword1')
+        newPassword2 = request.form.get('newPassword2')
+
+        user = User.query.filter_by(username=current_user.username).first()
+        if newPassword1 != newPassword2:
+            flash('Passwords does not match!', category='error')
+        elif password_check(newPassword1):
+            user.password = generate_password_hash(newPassword1, method='sha256')
+            db.session.commit()
+            flash('Password changed successfully!', category='success')
+            return redirect(url_for('views.home'))
+        else:
+            flash('Please try again', category='error')
+    return render_template("reset_password.html", user=current_user)
